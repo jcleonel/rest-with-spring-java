@@ -1,8 +1,10 @@
-package br.com.jc;
+package br.com.jc.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.com.jc.model.Greeting;
 
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -13,7 +15,7 @@ public class GreetingController {
     private static final AtomicLong counter = new AtomicLong();
 
     @GetMapping("/greeting")
-    public Greeting greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
+    public Greeting greeting(@RequestParam(defaultValue = "World") String name) {
         return new Greeting(counter.incrementAndGet(), String.format(template, name));
     }
 }

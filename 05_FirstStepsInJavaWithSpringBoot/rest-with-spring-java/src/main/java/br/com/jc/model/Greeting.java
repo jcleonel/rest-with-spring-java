@@ -1,4 +1,4 @@
-package br.com.jc;
+package br.com.jc.model;
 
 import java.util.Objects;
 
