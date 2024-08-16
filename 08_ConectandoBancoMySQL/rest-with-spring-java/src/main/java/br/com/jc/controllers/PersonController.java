@@ -24,7 +24,7 @@ public class PersonController {
 	private PersonServices service;
 	
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Person findById(@PathVariable String id){
+	public Person findById(@PathVariable Long id){
 		return service.findById(id);
 	}
 	
@@ -39,13 +39,13 @@ public class PersonController {
 	}
 	
 	
-	@PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public Person update(@RequestBody Person person){
 		return service.update(person);
 	}
 	
 	@DeleteMapping(value = "/{id}")
-	public void delete(@PathVariable String id){
+	public void delete(@PathVariable Long id){
 		service.delete(id);
 	}
 	
