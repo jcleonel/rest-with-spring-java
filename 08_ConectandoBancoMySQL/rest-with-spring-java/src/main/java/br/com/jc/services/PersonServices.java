@@ -1,8 +1,10 @@
 package br.com.jc.services;
 
 import br.com.jc.data.vo.v1.PersonVO;
+import br.com.jc.data.vo.v2.PersonVOV2;
 import br.com.jc.exceptions.ResourceNotFoundException;
 import br.com.jc.mapper.Mapper;
+import br.com.jc.mapper.custom.PersonMapper;
 import br.com.jc.model.Person;
 import br.com.jc.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class PersonServices {
     @Autowired
     PersonRepository repository;
 
+    @Autowired
+    private PersonMapper personMapper;
+
     public PersonVO findById(Long id) {
         logger.info("Finding one person!");
         var entity = repository.findById(id)
@@ -31,10 +36,16 @@ public class PersonServices {
         return Mapper.parseListObjects(repository.findAll(), PersonVO.class);
     }
 
-    public PersonVO create(Person person) {
+    public PersonVO create(PersonVO person) {
         logger.info("Create one person!");
         var entity = Mapper.parseObject(person, Person.class);
         return Mapper.parseObject(repository.save(entity), PersonVO.class);
+    }
+
+    public PersonVOV2 createV2(PersonVOV2 person) {
+        logger.info("Create one person V2!");
+        var entity = personMapper.convertVoToEntity(person);
+        return personMapper.convertEntityToVo(repository.save(entity));
     }
 
     public PersonVO update(PersonVO person) {
