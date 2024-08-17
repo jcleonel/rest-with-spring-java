@@ -5,13 +5,14 @@ spring:
     username: root
     password: 160293
   jpa:
+    open-in-view: false
     hibernate:
       ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-        temp:
-          use_jdbc_metadata_defaults: false
-      boot:
-        allow_jdbc_metadata_access: false
+    #properties:
+      #hibernate:
+        #dialect: org.hibernate.dialect.MySQLDialect
+       # temp:
+        #  use_jdbc_metadata_defaults: false
+     # boot:
+        #allow_jdbc_metadata_access: false
     show-sql: false

@@ -1,16 +1,14 @@
 package br.com.jc.services;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
-import java.util.logging.Logger;
-
+import br.com.jc.data.vo.v1.PersonVO;
 import br.com.jc.exceptions.ResourceNotFoundException;
+import br.com.jc.model.Person;
 import br.com.jc.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.jc.model.Person;
+import java.util.List;
+import java.util.logging.Logger;
 
 @Service
 public class PersonServices {
@@ -19,23 +17,23 @@ public class PersonServices {
     @Autowired
     PersonRepository repository;
 
-    public Person findById(Long id) {
+    public PersonVO findById(Long id) {
         logger.info("Finding one person!");
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this Id!"));
     }
 
-    public List<Person> findAll() {
+    public List<PersonVO> findAll() {
         logger.info("Finding all persons!");
         return repository.findAll();
     }
 
-    public Person create(Person person) {
+    public PersonVO create(Person person) {
         logger.info("Create one person!");
         return repository.save(person);
     }
 
-    public Person update(Person person) {
+    public PersonVO update(PersonVO person) {
         logger.info("Update one person!");
 
         var entity = repository.findById(person.getId())
