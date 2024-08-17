@@ -14,7 +14,7 @@ public class DozerMapper {
         return mapper.map(origin, destination);
     }
 
-    public static <O, D> List<D> parseListObject(List<O> origin, Class<D> destination) {
+    public static <O, D> List<D> parseListObjects(List<O> origin, Class<D> destination) {
         List<D> destinationObjects = new ArrayList<>();
 
         origin.forEach(o -> {
