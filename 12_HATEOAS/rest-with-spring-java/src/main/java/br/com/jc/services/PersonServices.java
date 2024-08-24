@@ -3,6 +3,7 @@ package br.com.jc.services;
 import br.com.jc.controllers.PersonController;
 import br.com.jc.data.vo.v1.PersonVO;
 import br.com.jc.data.vo.v2.PersonVOV2;
+import br.com.jc.exceptions.RequiredObjectIsNullException;
 import br.com.jc.exceptions.ResourceNotFoundException;
 import br.com.jc.mapper.Mapper;
 import br.com.jc.mapper.custom.PersonMapper;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
@@ -46,6 +48,11 @@ public class PersonServices {
     }
 
     public PersonVO create(PersonVO person) {
+
+        if (Objects.isNull(person)) {
+            throw new RequiredObjectIsNullException();
+        }
+
         logger.info("Create one person!");
         var entity = Mapper.parseObject(person, Person.class);
         PersonVO vo =  Mapper.parseObject(repository.save(entity), PersonVO.class);
@@ -60,6 +67,11 @@ public class PersonServices {
     }
 
     public PersonVO update(PersonVO person) {
+
+        if (Objects.isNull(person)) {
+            throw new RequiredObjectIsNullException();
+        }
+
         logger.info("Update one person!");
 
         var entity = repository.findById(person.getKey())
@@ -70,7 +82,7 @@ public class PersonServices {
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
 
-        PersonVO vo =   Mapper.parseObject(repository.save(entity), PersonVO.class);
+        PersonVO vo = Mapper.parseObject(repository.save(entity), PersonVO.class);
         vo.add(linkTo(methodOn(PersonController.class).findById(vo.getKey())).withSelfRel());
         return vo;
     }
