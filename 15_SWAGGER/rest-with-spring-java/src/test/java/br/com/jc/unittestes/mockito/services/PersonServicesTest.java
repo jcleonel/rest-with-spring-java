@@ -1,4 +1,4 @@
-package br.com.jc.unittests.mockito.services;
+package br.com.jc.unittestes.mockito.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
